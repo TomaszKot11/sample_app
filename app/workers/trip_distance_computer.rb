@@ -10,5 +10,6 @@ class TripDistanceComputer
     from_geo_cord = Geocoder.coordinates(from_loc)
     to_geo_cord = Geocoder.coordinates(to_loc)
     distance = Geocoder::Calculations.distance_between(from_geo_cord, to_geo_cord, units: :km)
+    trip.update!(distance: distance)
   end
 end
