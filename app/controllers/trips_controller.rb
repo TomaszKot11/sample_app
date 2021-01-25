@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 class TripsController < ApplicationController
-
   def create
-    trip_created = Trip.create!(trip_params)
+    trip_created = TripCreator.call(trip_params)
     render json: trip_created, status: :created
   end
 
