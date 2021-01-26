@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Trips' do
   describe 'POST /api/trip' do
-    subject { post trip_path, params: post_params }
+    subject { post trips_path, params: post_params }
     let(:post_params) {  }
     before do |example|
       subject unless example.metadata[:skip_request]
@@ -12,7 +12,7 @@ RSpec.describe 'Trips' do
 
     context 'with valid attributes' do
         let(:valid_attributes) { FactoryBot.attributes_for(:trip) }
-        let(:valid_json_response) { valid_attributes.except(:delivery_date).transform_keys(&:to_s).transform_values(&:to_s) }
+        let(:valid_json_response) { valid_attributes.except(:distance, :delivery_date).transform_keys(&:to_s).transform_values(&:to_s) }
         let(:post_params) { { trip: valid_attributes } }
 
         it 'returns HTTP 201 status' do
@@ -24,7 +24,7 @@ RSpec.describe 'Trips' do
         end
 
         it 'returns new trip in the response' do
-          expect(json_response).to include valid_json_response
+          expect(json_response.dig('data', 'attributes')).to include valid_json_response
         end
       end
 
