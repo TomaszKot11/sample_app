@@ -13,6 +13,7 @@ class TripCreator < ApplicationService
 
   def call
     create_record
+    enqueue_background_job
     @trip
   end
 
@@ -20,5 +21,9 @@ class TripCreator < ApplicationService
 
   def create_record
     @trip = Trip.create!(@trip_params)
+  end
+
+  def enqueue_background_job
+    TripDistanceComputer.perform_async(@trip.id)
   end
 end
