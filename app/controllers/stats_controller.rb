@@ -6,7 +6,7 @@ class StatsController < ApplicationController
   # and have the monthly/weekly stats as query string
   ##
   def weekly
-    render json: { status: 'ok' }, status: :ok
+    render json: StatsService.call(period: :weekly), status: :ok
   end
 
   def monthly
