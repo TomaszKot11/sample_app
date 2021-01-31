@@ -10,6 +10,6 @@ class StatsController < ApplicationController
   end
 
   def monthly
-    render json: { status: 'ok' }, status: :ok
+    render json: StatsService.call, status: :ok
   end
 end
